@@ -60,6 +60,11 @@ CREATE TABLE `launchpad_password` (
     REFERENCES `launchpad_node` (`lp_node_id`)
 );
 
+DROP VIEW IF EXISTS `launchpad_init`;
+CREATE VIEW `launchpad_init` AS
+  SELECT `lp_node_id`, `lp_node2_id`, `lp_node_type`, 
+    regex_replace('[A-Za-z0-9]', '?', `lp_node_str`) AS `lp_node_str`
+  FROM `launchpad_node` AS a LEFT OUTER JOIN `launchpad_edge` AS b ON a.lp_node_id = b.lp_node1_id;
 --
 -- Functions
 --
@@ -94,8 +99,18 @@ DELIMITER ;
 -- Initial data import
 --
 
-INSERT INTO `launchpad_node` (`lp_node_str`) VALUE ('test1 test2');
-INSERT INTO `launchpad_node` (`lp_node_str`) VALUE ('test10 test20');
+INSERT INTO `launchpad_node` (`lp_node_str`) VALUES
+  ('test1 test2'),
+  ('test10 test20'),
+  ('test203'),
+  ('test204')
+;
+
+INSERT INTO `launchpad_edge` (`lp_node1_id`, `lp_node2_id`) VALUES
+  (1, 2),
+  (2, 3)
+;
+
 INSERT INTO `launchpad_team` (`lp_team_name`) VALUE ('team1');
 INSERT INTO `launchpad_password` (`lp_password_str`, `lp_team_id`, `lp_reveal_node_id`)
   VALUE ('abc', 1, 1);
