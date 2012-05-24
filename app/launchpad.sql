@@ -70,12 +70,13 @@ DROP PROCEDURE IF EXISTS enter_val;
 DELIMITER |
 CREATE PROCEDURE first_login (password_str VARCHAR(8))
 BEGIN
-  SELECT @team_id:=`lp_team_id`, @node_id:=`lp_reveal_node_id`, @str:=`lp_node_str`
+  SELECT @team_id:=`lp_team_id` AS lp_team_id,
+    @node_id:=`lp_reveal_node_id` AS lp_reveal_node_id,
+    @str:=`lp_node_str` AS lp_node_str
   FROM `launchpad_password` JOIN `launchpad_node` ON `lp_reveal_node_id` = `lp_node_id`
   WHERE `lp_password_str` LIKE password_str;
   INSERT IGNORE INTO launchpad_progress(`lp_team_id`, `lp_node_id`)
     VALUE(@team_id, @node_id);
-  SELECT @team_id AS lp_team_id, @node_id AS lp_reveal_nod_id, @str AS lp_node_str;
 END |
 
 CREATE PROCEDURE enter_val (team_id INT, fringe_str VARCHAR(8))

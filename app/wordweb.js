@@ -51,7 +51,7 @@ var Log = {
 };
 
 
-function init(json){
+function init(){
   // init data
   var json = [
       {
