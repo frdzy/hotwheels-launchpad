@@ -61,6 +61,11 @@ CREATE TABLE `launchpad_password` (
     REFERENCES `launchpad_node` (`lp_node_id`)
 );
 
+
+--
+-- Derived tables
+--
+
 DROP VIEW IF EXISTS `launchpad_init`;
 CREATE VIEW `launchpad_init` AS
   SELECT `lp_node_id`, `lp_node2_id`, `lp_node_type`
@@ -86,10 +91,10 @@ CREATE VIEW `launchpad_fringe` AS
   WHERE (c.lp_team_id, f.lp_node_id) NOT IN (SELECT lp_team_id, lp_node_id FROM launchpad_progress)
   ORDER BY lp_team_id;
 
---
--- Functions
---
 
+--
+-- Functions and Procedures
+--
 
 DELIMITER |
 
@@ -142,8 +147,9 @@ END |
 
 DELIMITER ;
 
+
 --
--- Initial data import
+-- Initial data import (test)
 --
 
 INSERT INTO `launchpad_node` (`lp_node_str`) VALUES

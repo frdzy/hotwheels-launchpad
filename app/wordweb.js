@@ -196,7 +196,7 @@ function init(){
       Log.write(perc + '% loaded...');
     },
     onComplete: function(){
-      Log.write('done');
+      Log.write('Bigger Faster Stronger');
       fd.animate({
         modes: ['linear'],
         transition: $jit.Trans.Elastic.easeOut,

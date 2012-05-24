@@ -20,18 +20,19 @@ if (!extension_loaded('xhp')) {
 </head>
 <body>
 
-<form method="post" name="form">
-  Password:
-  <input id="lp_password" name="lp_password" type="password" />
-  <div >
+<div id="login">
+  <form method="post" name="form">
+    Password:
+    <input id="lp_password" name="lp_password" type="text" />
     <input id="lp_password_submit" type="submit" value="Submit" class="submit" action="" />
-    <span class="error" style="display:none">Please enter a valid password</span>
-    <span class="success" style="display:none">Password accepted</span>
-  </div>
-</form>
+    <div style="height:30px;">
+      <span class="error" style="display:none">Please enter a valid password</span>
+      <span class="success" style="display:none">Password accepted</span>
+    </div>
+  </form>
+</div>
 
-<div id="txtHint"><b>Person info will be listed here.</b></div>
-
+<div id="game" style="display:none">
 <div id="container">
 
 <div id="left-container">
@@ -49,6 +50,9 @@ if (!extension_loaded('xhp')) {
 
 <div id="log"></div>
 </div>
+<div id="credits" style="vertical-align:text-bottom;">Special thanks to Xida</div>
+</div>
+
 </body>
 </html>
 

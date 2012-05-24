@@ -13,8 +13,15 @@ $(function() {
         url: "app/entry.php",
         data: {request: "password", value: password},
         success: function(result){
-          init();
-          console.log("initing");
+          if (result != "no") {
+            $("#game").fadeIn(1000);
+            init();
+            console.log("initing");
+          }
+          else {
+            $('.success').fadeOut(200).hide();
+            $('.error').fadeOut(200).show();
+          }
         }
       });
     }
