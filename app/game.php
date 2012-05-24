@@ -9,7 +9,7 @@ function check_pwd ($pwd) {
 function init_game($pwd) {
   $db = lloyd_db_connect();
   $pwd = strip_string($pwd);
-  $init_exec = "CALL first_login('$pwd')";
+  $init_exec = "CALL password_check('$pwd')";
   $res = $db->query($init_exec)->fetch();
   error_log("derpderp $res");
 
