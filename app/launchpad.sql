@@ -168,10 +168,10 @@ INSERT INTO `launchpad_edge` (`lp_node1_id`, `lp_node2_id`) VALUES
 ;
 */
 
-/*
 INSERT INTO `launchpad_team` (`lp_team_name`) VALUE ('team1');
 INSERT INTO `launchpad_password` (`lp_password_str`, `lp_team_id`, `lp_reveal_node_id`)
-  VALUE ('abc', 1, 1);
+  VALUE ('1995', 1, 1);
 INSERT INTO `launchpad_progress` (`lp_team_id`, `lp_node_id`) VALUE (1, 1);
+  /*
 SELECT enter_val (1, 'test10 test20');
 */

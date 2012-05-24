@@ -32,16 +32,15 @@ function init_game($pwd) {
   $pwd = strip_string($pwd);
   $init_exec = "CALL password_check('$pwd')";
   $res = $db->query($init_exec)->fetch();
-  error_log("derpderp $res");
+  error_log("derpderp ".print_r($res, true));
 
-  if ($res !== null) {
+  if ($res != null) {
     $graph_init_exec = "SELECT * FROM launchpad_init;";
     $graph_init_query = $db->query($graph_init_exec);
 
     $nodes_index = array();
-    $nodes_json = array('lp_team_id' => $res);
+    $nodes_json = array('lp_team_id' => $res[0]);
     foreach ($graph_init_query as $row) {
-      error_log("epic");
       error_log(print_r($row, true));
       $lp_node_id = $row['lp_node_id'];
       $lp_node2_id = $row['lp_node2_id'];
@@ -50,10 +49,10 @@ function init_game($pwd) {
       $node_info = null;
 
       if (in_array($lp_node_id, $nodes_index)) {
-        error_log("found $lp_node_id in nodes_index");
+        // error_log("found $lp_node_id in nodes_index");
         $node_info = $nodes_json[array_search($lp_node_id, $nodes_index)];
         if ($lp_node2_id != null) {
-          error_log("adding adjs to $lp_node2_id");
+          // error_log("adding adjs to $lp_node2_id");
           $nodes_json[array_search($lp_node_id, $nodes_index)]["adjacencies"][] =
             array(
               "nodeFrom" => $lp_node_id,
@@ -88,5 +87,33 @@ function init_game($pwd) {
   }
 
   $db = null;
+  error_log("final" . print_r($res, true));
   return $res;
 }
+
+function reveal($pwd) {
+  $db = lloyd_db_connect();
+  $reveal_query = "select * from launchpad_fringe";
+  $graph_reveal_query = $db->query($reveal_query);
+  $reveal_json = array();
+  foreach ($graph_reveal_query as $row) {
+    $reveal_json[] = array($row['lp_node_id'], $row['lp_node_str_scrambled']);
+  }
+
+  error_log("reveal = ");
+  error_log(print_r($reveal_json, true));
+
+  return $reveal_json;
+}
+
+function enter_val ($val) {
+  $db = lloyd_db_connect();
+  $enter_query = "select enter_val(1, '$val');";
+  $enter_result = $db->query($enter_query)->fetch();
+  error_log("enterresult =$enter_result");
+  if ($enter_result[0] === '0')
+    return null;
+
+  return $enter_result[0];
+}
+

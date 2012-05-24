@@ -13,11 +13,12 @@ $(function() {
         url: "app/entry.php",
         data: {request: "password", value: password},
         success: function(result){
-          var json = $.parseJSON(result);
           if (result != "no") {
+            console.log('result' + result);
             $("#lp_password_submit").attr("disabled", "disabled");
+            $("#failtext").fadeIn(500);
             $("#game").fadeIn(1000);
-            ww.init(json);
+            ww.init(result);
             console.log("initing");
           }
           else {
@@ -26,6 +27,7 @@ $(function() {
           }
         }
       });
+
     }
 
     return false;

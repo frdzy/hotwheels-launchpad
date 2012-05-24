@@ -2,7 +2,7 @@ var labelType, useGradients, nativeTextSupport, animate, ww;
 
 ww = new WordWeb();
 
-console.log(ww.getFd());
+// console.log(ww.getFd());
 
 (function() {
   var ua = navigator.userAgent,
@@ -108,23 +108,24 @@ function WordWeb() {
         },
         //Add also a click handler to nodes
         onClick: function(node) {
+          /*
           $.ajax({
             type: "GET",
             url: "app/entry.php",
             data: {request: "update"},
             success: function(result){
               if (result != "no") {
-                $("#lp_disarm_submit").attr("disabled", "disabled");
+                $("#lp_next_phrase_submit").attr("disabled", "disabled");
               }
               else {
-                $('.disarm_success').fadeOut(200).hide();
-                $('.disarm_error').fadeOut(200).show();
+                $('.next_phrase_success').fadeOut(200).hide();
+                $('.next_phrase_error').fadeOut(200).show();
               }
             }
           });
+          */
         
-          console.log(node);
-          if(!node) return;
+          if(true) return;
           // Build the right column relations list.
           // This is done by traversing the clicked node connections.
           var html = "<h4>" + node.name + "</h4><b> connections:</b><ul><li>",
@@ -183,7 +184,30 @@ function WordWeb() {
         });
       }
     });
-    // end
+
+    $.ajax({
+      type: "GET",
+      url: "app/entry.php",
+      data: {request: "reveal", value: ''},
+      success: function(result){
+        fd.graph.nodes['1'].name = 'rocket';
+
+        // console.log(result);
+        var rows = $.parseJSON(result);
+        // console.log(rows);
+        for (i in rows) {
+          row=rows[i];
+          // console.log("row = " + row);
+          fd.graph.nodes[row['0']].name = row['1'];
+        }
+        fd.animate({
+          modes: ['linear'],
+          transition: $jit.Trans.Elastic.easeOut,
+          duration: 500
+        });
+      }
+    });
+  // end
   };
 
   /*
@@ -196,11 +220,11 @@ function WordWeb() {
         data: {request: "password", value: password},
         success: function(result){
           if (result != "no") {
-            $("#lp_disarm_submit").attr("disabled", "disabled");
+            $("#lp_next_phrase_submit").attr("disabled", "disabled");
           }
           else {
-            $('.disarm_success').fadeOut(200).hide();
-            $('.disarm_error').fadeOut(200).show();
+            $('.next_phrase_success').fadeOut(200).hide();
+            $('.next_phrase_error').fadeOut(200).show();
           }
         }
       }
@@ -212,27 +236,25 @@ function WordWeb() {
 
 
 $(function() {
-  $("#lp_disarm_submit").click(function() {
+  $("#lp_next_phrase_submit").click(function() {
 
-    var password = $("#lp_disarm").val();
-    fd = ww.getFd();
-    console.log("test" + fd.graph.nodes['1'].name);
+    var password = $("#lp_next_phrase").val();
     if(password=='') {
-      $('.disarm_success').fadeOut(200).hide();
-      $('.disarm_error').fadeOut(200).show();
+      $('.next_phrase_success').fadeOut(200).hide();
+      $('.next_phrase_error').fadeOut(200).show();
     }
     else {
       $.ajax({
         type: "GET",
         url: "app/entry.php",
-        data: {request: "word", value: password},
+        data: {request: "phrase", value: password},
         success: function(result){
           if (result != "no") {
-            $("#lp_disarm_submit").attr("disabled", "disabled");
+            console.log(result);
           }
           else {
-            $('.disarm_success').fadeOut(200).hide();
-            $('.disarm_error').fadeOut(200).show();
+            $('.next_phrase_success').fadeOut(200).hide();
+            $('.next_phrase_error').fadeOut(200).show();
           }
         }
       });

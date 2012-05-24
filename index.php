@@ -18,6 +18,7 @@ else {
 ?>
 <html>
 <head>
+<title>Launch Pad</title>
 <link type="text/css" href="http://thejit.org/static/v20/Jit/Examples/css/base.css" rel="stylesheet" />
 
 <script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
@@ -27,6 +28,32 @@ else {
 </head>
 <body onload='<?php echo $relogin_js; ?>'>
 
+<div>
+  <div>
+  <img src="buzz_rocket_2.jpg" />
+  <img src="buzz_rocket_3.jpg" />
+  </div>
+  <div>
+  <script language="JavaScript">
+  TargetDate = "05/24/2012 09:20 AM";
+  /*BackColor = "palegreen";
+  ForeColor = "navy";
+  CountActive = true;
+  CountStepper = -1;*/
+  LeadingZero = true;
+  DisplayFormat = "%%H%% Hours, %%M%% Minutes, %%S%% Seconds.";
+  FinishMessage = "Ready for blastoff!";
+  </script>
+  <script language="JavaScript" src="http://scripts.hashemian.com/js/countdown.js"></script>
+  </div>
+</div>
+
+<div>
+  <h1>
+    Manual Override Control
+  </h1>
+</div>
+
 <div id="login">
   <form method="post" name="form">
     Password:
@@ -35,6 +62,7 @@ else {
     <div style="height:30px;">
       <span class="error" style="display:none">Please enter a valid password</span>
       <span class="success" style="display:none">Password accepted</span>
+      <div id="failtext" style="display:none">Tampering detected, initiating secondary firewall</div>
     </div>
   </form>
 </div>
@@ -44,12 +72,12 @@ else {
 
 <div id="left-container">
   <form method="post" name="form">
-  Disarm Code:
-  <input id="lp_disarm" name="lp_disarm" type="text" />
-  <input id="lp_disarm_submit" type="submit" value="Submit" class="submit" action="" />
+  Next Explorable String:
+  <input id="lp_next_phrase" name="lp_next_phrase" type="text" />
+  <input id="lp_next_phrase_submit" type="submit" value="Submit" class="submit" action="" />
   <div style="height:30px;">
-    <span class="disarm_error" style="display:none">Please enter a valid password</span>
-    <span class="disarm_success" style="display:none">Password accepted</span>
+    <span class="next_phrase_error" style="display:none">Please enter a valid phrase</span>
+    <span class="next_phrase_success" style="display:none">Password accepted</span>
   </div>
 </div>
 

@@ -8,7 +8,7 @@ function relogin (team_id, team_password) {
         $("#lp_password_submit").attr("disabled", "disabled");
         $("#game").fadeIn(1000);
         ww.init(result);
-        console.log("initing");
+        console.log("reiniting");
       }
       else {
         $('.success').fadeOut(200).hide();
