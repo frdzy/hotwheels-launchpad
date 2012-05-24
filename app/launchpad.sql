@@ -152,20 +152,26 @@ DELIMITER ;
 -- Initial data import (test)
 --
 
-INSERT INTO `launchpad_node` (`lp_node_str`) VALUES
-  ('test1 test2'),
-  ('test10 test20'),
-  ('test203'),
-  ('test204')
+/*
+INSERT INTO `launchpad_node` (`lp_node_str`, `lp_node_type`) VALUES
+  ('test1 test2', 'start'),
+  ('test10 test20', NULL),
+  ('test203', NULL),
+  ('test204', 'end')
 ;
 
 INSERT INTO `launchpad_edge` (`lp_node1_id`, `lp_node2_id`) VALUES
   (1, 2),
-  (2, 3)
+  (1, 3),
+  (2, 3),
+  (3, 4)
 ;
+*/
 
+/*
 INSERT INTO `launchpad_team` (`lp_team_name`) VALUE ('team1');
 INSERT INTO `launchpad_password` (`lp_password_str`, `lp_team_id`, `lp_reveal_node_id`)
   VALUE ('abc', 1, 1);
 INSERT INTO `launchpad_progress` (`lp_team_id`, `lp_node_id`) VALUE (1, 1);
 SELECT enter_val (1, 'test10 test20');
+*/

@@ -1,24 +1,31 @@
 <?php
 require_once('app/init.php');
+session_start();
 
 if (!extension_loaded('xhp')) {
   echo 'XHP extension not found.\n';
 }
 
-?>
+if(isset($_SESSION['team_id']) && isset($_SESSION['team_password'])) {
+  $login_js = '<script language="javascript" type="text/javascript" src="app/relogin.js"></script>';
+  $relogin_js = 'relogin("' . $_SESSION['team_id'] . '", "' . $_SESSION['team_password'] . '");';
+}
+else {
+  $login_js = '<script language="javascript" type="text/javascript" src="app/login.js"></script>';
+  $relogin_js = '';
+}
 
+?>
 <html>
 <head>
 <link type="text/css" href="http://thejit.org/static/v20/Jit/Examples/css/base.css" rel="stylesheet" />
 
-<script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
-</script>
+<script language="javascript" type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script language="javascript" type="text/javascript" src="app/jit-yc.js"></script>
 <script language="javascript" type="text/javascript" src="app/wordweb.js"></script>
-<script language="javascript" type="text/javascript" src="app/login.js"></script>
-</script>
+<?php echo $login_js; ?>
 </head>
-<body>
+<body onload='<?php echo $relogin_js; ?>'>
 
 <div id="login">
   <form method="post" name="form">
@@ -36,6 +43,14 @@ if (!extension_loaded('xhp')) {
 <div id="container">
 
 <div id="left-container">
+  <form method="post" name="form">
+  Disarm Code:
+  <input id="lp_disarm" name="lp_disarm" type="text" />
+  <input id="lp_disarm_submit" type="submit" value="Submit" class="submit" action="" />
+  <div style="height:30px;">
+    <span class="disarm_error" style="display:none">Please enter a valid password</span>
+    <span class="disarm_success" style="display:none">Password accepted</span>
+  </div>
 </div>
 
 <div id="center-container">

@@ -13,9 +13,11 @@ $(function() {
         url: "app/entry.php",
         data: {request: "password", value: password},
         success: function(result){
+          var json = $.parseJSON(result);
           if (result != "no") {
+            $("#lp_password_submit").attr("disabled", "disabled");
             $("#game").fadeIn(1000);
-            init();
+            ww.init(json);
             console.log("initing");
           }
           else {
@@ -25,6 +27,7 @@ $(function() {
         }
       });
     }
+
     return false;
   });
 });
