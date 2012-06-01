@@ -93,7 +93,8 @@ function init_game($pwd) {
 
 function reveal($pwd) {
   $db = lloyd_db_connect();
-  $reveal_query = "select * from launchpad_fringe";
+  $reveal_query = "select * from launchpad_fringe union
+  select lp_team_id, lp_node_id, lp_node_str as lp_node_str_scrambled from launchpad_progress natural join launchpad_node;";
   $graph_reveal_query = $db->query($reveal_query);
   $reveal_json = array();
   foreach ($graph_reveal_query as $row) {
@@ -111,8 +112,6 @@ function enter_val ($val) {
   $enter_query = "select enter_val(1, '$val');";
   $enter_result = $db->query($enter_query)->fetch();
   error_log("enterresult =$enter_result");
-  if ($enter_result[0] === '0')
-    return null;
 
   return $enter_result[0];
 }

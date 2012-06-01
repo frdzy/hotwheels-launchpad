@@ -40,11 +40,14 @@ if (get_param('request')) {
     $value = get_param('value');
     $result = enter_val($value);
     error_log("entryresult = $result");
-    if ($result) {
-      echo json_encode($result);
+    if ($result == 33) {
+      echo json_encode(array('redirect' => "/launchpad/rocket_launch.php"));
+    }
+    else if ($result == 0) {
+      echo "no";
     }
     else {
-      echo "no";
+      echo json_encode(array('result' => "$result", 'value' => $value));
     }
 
   }

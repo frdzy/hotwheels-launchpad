@@ -248,14 +248,65 @@ $(function() {
         type: "GET",
         url: "app/entry.php",
         data: {request: "phrase", value: password},
-        success: function(result){
-          if (result != "no") {
-            console.log(result);
+        success: function(result_str){
+
+          if (result_str != "no") {
+          var result = $.parseJSON(result_str);
+          if (result['redirect']) {
+            window.location = result['redirect'];
           }
+          else  {
+            console.log("new_id" + result);
+            if (result != "no" && result['result']) {
+              var new_id = result['result'];
+              var value = result['value'];
+              fd = ww.getFd();
+              $('.next_phrase_error').fadeOut(200).hide();
+              $('.next_phrase_success').html("Found <u>" + value + "</u>");
+              $('.next_phrase_success').fadeOut(200).show();
+              fd.graph.nodes[new_id].name = value;
+              fd.animate({
+                modes: ['linear'],
+                transition: $jit.Trans.Elastic.easeOut,
+                duration: 500
+              });
+            $.ajax({
+              type: "GET",
+              url: "app/entry.php",
+              data: {request: "reveal", value: ''},
+              success: function(result){
+                fd.graph.nodes['1'].name = 'rocket';
+
+                var rows = $.parseJSON(result);
+                for (i in rows) {
+                  row=rows[i];
+                  console.log("row = " + row);
+                  fd.graph.nodes[row['0']].name = row['1'];
+                }
+
+                fd.animate({
+                  modes: ['linear'],
+                  transition: $jit.Trans.Elastic.easeOut,
+                  duration: 500
+                });
+              }
+            });
+                        
+
+            }
+            else {
+              $('.next_phrase_success').fadeOut(200).hide();
+              $('.next_phrase_error').fadeOut(200).show();
+            }
+          }
+        }
+
           else {
             $('.next_phrase_success').fadeOut(200).hide();
             $('.next_phrase_error').fadeOut(200).show();
           }
+
+
         }
       });
     }

@@ -14,7 +14,7 @@ $(function() {
         data: {request: "password", value: password},
         success: function(result){
           if (result != "no") {
-            console.log('result' + result);
+            // console.log('result' + result);
             $("#lp_password_submit").attr("disabled", "disabled");
             $("#failtext").fadeIn(500);
             $("#game").fadeIn(1000);

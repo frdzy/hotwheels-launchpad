@@ -1,14 +1,15 @@
 <html>
 <head>
 <title>Prelaunch Sequence Initiated</title>
-<link type="text/css" href="http://thejit.org/static/v20/Jit/Examples/css/base.css" rel="stylesheet" />
-<script language="javascript" type="text/javascript" src="countdown.js"></script>
+<link type="text/css" href="http://toystory.caltech.edu/launchpad/style.css" rel="stylesheet" />
 </head>
 <body>
-<center>
-<div>
+
+<div style="margin-left: 0px; float:left; padding: 100px 0px 0px 50px;">
   <div>
   <img src="buzz_rocket_2.jpg" />
+  </div>
+  <div>
   <img src="buzz_rocket_3.jpg" />
   </div>
   <div>
@@ -25,10 +26,11 @@
   <script language="JavaScript" src="http://scripts.hashemian.com/js/countdown.js"></script>
   </div>
 </div>
-<div>
-<h2>
+
+<center>
+<h1>
   <a href="/launchpad/">Launch Pad</a>
-</h2>
+</h1>
 </div>
 </center>
 </body>
